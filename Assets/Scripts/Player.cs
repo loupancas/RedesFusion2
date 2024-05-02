@@ -75,31 +75,17 @@ public class Player : NetworkBehaviour
     {
         if (!HasStateAuthority) return;
         
-        //_xAxi = Input.GetAxis("Horizontal");
+        _xAxi = Input.GetAxis("Horizontal");
+        _yAxi = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            _xAxi = Input.GetAxis("Horizontal");
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            _xAxi = -Input.GetAxis("Horizontal");
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _yAxi = -Input.GetAxis("Vertical");
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            _yAxi = Input.GetAxis("Vertical");
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //_shootPressed = true;
             _jumpPressed = true;
         }
-        if (Input.GetMouseButtonDown((int)KeyCode.RightControl))
+        if (Input.GetMouseButtonDown(1))
         {
             _shootPressed = true;
             
@@ -119,12 +105,34 @@ public class Player : NetworkBehaviour
         //transform.position += Vector3.right * (_xAxi * _speed * Runner.DeltaTime);
         
         //_rgbd.MovePosition(_rgbd.position + Vector3.right * (_xAxi * _speed * Runner.DeltaTime));
+              
+
+        Movement();
+        
+        
+    }
+
+    void Movement()
+    {
+        //SALTO
+        if (_jumpPressed)
+        {
+            Jump();
+            _jumpPressed = false;
+        }
+
+        if (_shootPressed)
+        {
+            RaycastShoot();
+
+            _shootPressed = false;
+        }
 
         //MOVIMIENTO
         if (_xAxi != 0)
         {
             transform.forward = Vector3.right * Mathf.Sign((_xAxi));
-            
+
             _rgbd.velocity += Vector3.right * (_xAxi * _speed * 10 * Runner.DeltaTime);
 
             if (Mathf.Abs(_rgbd.velocity.x) > _speed)
@@ -134,7 +142,8 @@ public class Player : NetworkBehaviour
 
                 _rgbd.velocity = velocity;
             }
-        } else if (_yAxi != 0)
+        }
+        else if (_yAxi != 0)
         {
             transform.forward = Vector3.forward * Mathf.Sign((_yAxi));
 
@@ -155,27 +164,7 @@ public class Player : NetworkBehaviour
             _rgbd.velocity = velocity;
         }
 
-        OnMovement(_xAxi);
-        OnMovement(_yAxi);
-        
-        //SALTO
-        if (_jumpPressed)
-        {
-            Jump();
-            _jumpPressed = false;
-        }
-
-        if (_shootPressed)
-        {
-            RaycastShoot();
-            
-            _shootPressed = false;
-        }
-    }
-
-    void Movement()
-    {
-        
+       
     }
 
     void Jump()
