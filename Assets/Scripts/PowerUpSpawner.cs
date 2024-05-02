@@ -19,7 +19,7 @@ public class PowerUpSpawner : MonoBehaviour
     void SpawnPowerUps()
     {
         List<Vector3> spawnPoints = Enumerable.Range(0, numberOfPowerUps)
-            .Select(_ => GetRandomSpawnPoint())
+            .Select(num => GetRandomSpawnPoint())
             .ToList();
 
         spawnPoints.ForEach(spawnPoint =>

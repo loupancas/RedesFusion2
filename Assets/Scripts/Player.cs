@@ -6,6 +6,8 @@ using Fusion;
 
 public class Player : NetworkBehaviour
 {
+    public static Player LocalPlayer { get; private set; }
+
     [Header("Stats")]
     [SerializeField] private float _speed = 3;
     [SerializeField] private float _jumpForce = 5;
@@ -15,6 +17,7 @@ public class Player : NetworkBehaviour
     private Rigidbody _rgbd;
     
     private float _xAxi;
+    private float _yAxi;
     private bool _jumpPressed;
     private bool _shootPressed;
 
@@ -72,16 +75,34 @@ public class Player : NetworkBehaviour
     {
         if (!HasStateAuthority) return;
         
-        _xAxi = Input.GetAxis("Horizontal");
+        //_xAxi = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            _jumpPressed = true;
+            _xAxi = Input.GetAxis("Horizontal");
         }
-        
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            _xAxi = -Input.GetAxis("Horizontal");
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            _yAxi = -Input.GetAxis("Vertical");
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            _yAxi = Input.GetAxis("Vertical");
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            //_shootPressed = true;
+            _jumpPressed = true;
+        }
+        if (Input.GetMouseButtonDown((int)KeyCode.RightControl))
+        {
             _shootPressed = true;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -113,6 +134,19 @@ public class Player : NetworkBehaviour
 
                 _rgbd.velocity = velocity;
             }
+        } else if (_yAxi != 0)
+        {
+            transform.forward = Vector3.forward * Mathf.Sign((_yAxi));
+
+            _rgbd.velocity += Vector3.forward * (_yAxi * _speed * 10 * Runner.DeltaTime);
+
+            if (Mathf.Abs(_rgbd.velocity.z) > _speed)
+            {
+                var velocity = Vector3.ClampMagnitude(_rgbd.velocity, _speed);
+                velocity.y = _rgbd.velocity.y;
+
+                _rgbd.velocity = velocity;
+            }
         }
         else
         {
@@ -122,6 +156,7 @@ public class Player : NetworkBehaviour
         }
 
         OnMovement(_xAxi);
+        OnMovement(_yAxi);
         
         //SALTO
         if (_jumpPressed)
@@ -136,6 +171,11 @@ public class Player : NetworkBehaviour
             
             _shootPressed = false;
         }
+    }
+
+    void Movement()
+    {
+        
     }
 
     void Jump()
@@ -179,5 +219,10 @@ public class Player : NetworkBehaviour
     {
         Runner.Despawn(Object);
     }
-    
+
+    private void SetVictoryScreenRPC(Player player)
+    {
+        UIManager.instance.SetVictoryScreen(player);
+    }
+
 }
