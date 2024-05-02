@@ -7,14 +7,15 @@ public class PlayerView : NetworkBehaviour
 {
     //[SerializeField] private ParticleSystem _shootingParticles;
 
-    private NetworkMecanimAnimator _mecanim;
+    //private NetworkMecanimAnimator _mecanim;
+    Animator _animator;
 
     public override void Spawned()
     {
         if (!HasStateAuthority) return;
 
-        _mecanim = GetComponentInChildren<NetworkMecanimAnimator>();
-            
+        //_mecanim = GetComponentInChildren<NetworkMecanimAnimator>();
+        _animator = GetComponent<Animator>();
         //var m = GetComponentInParent<PlayerMovement>();
 
         //if (!m || !_mecanim) return;
@@ -24,9 +25,10 @@ public class PlayerView : NetworkBehaviour
 
     }
 
-    void MoveAnimation(float xAxi)
+    public override void FixedUpdateNetwork()
     {
-        _mecanim.Animator.SetFloat("axi", Mathf.Abs(xAxi));
+        //_animator.SetBool("isWalking", Player > 0);
+        //IsRunning = Player.LocalPlayer.RB.velocity.SetYZero().sqrMagnitude > 0;
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]

@@ -14,7 +14,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private float _shootDamage = 25f;
     [SerializeField] private LayerMask _shootLayer;
 
-    private Rigidbody _rgbd;
+    public Rigidbody _rgbd;
     
     private float _xAxi;
     private float _yAxi;

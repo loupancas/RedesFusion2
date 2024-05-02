@@ -301,7 +301,7 @@ MonoBehaviour:
   TotalWords: 0
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 00000000
+  StateHashes: 000000002b1a167c79406955
   TriggerHashes: 00000000
 --- !u!95 &4413424587049369478
 Animator:
@@ -312,7 +312,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5800810423778596627}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 5eaf803bca15ffb47a33c60b61606d27, type: 3}
   m_Controller: {fileID: 9100000, guid: 340ea1417eb78a446a172108f7ad5566, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
