@@ -22,6 +22,6 @@ public class PowerUp : NetworkBehaviour
     {
         if (IsActive == false) return;
 
-        //funcion para saltar
+        //se ejecutara el power up
     }
 }

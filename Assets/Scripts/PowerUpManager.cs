@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +8,9 @@ public class PowerUpManager : MonoBehaviour
 {
     public Transform powerUpParent;
     public List<GameObject> powerUps = new List<GameObject>();
-    public Text notificationText; 
-    public float interactionRange = 5f; 
+    public Text notificationText;
+    public float interactionRange = 5f;
+    public Player player;
 
     void Start()
     {
@@ -17,7 +19,10 @@ public class PowerUpManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (player != null)
+        {
+            StartCoroutine(InteractWithClosestPowerUpCoroutine(player.transform.position));
+        }
     }
 
     void PopulatePowerUpsList()
@@ -32,21 +37,16 @@ public class PowerUpManager : MonoBehaviour
         return powerUps.OrderBy(p => Vector3.Distance(p.transform.position, position)).FirstOrDefault();
     }
 
-   
-    public void InteractWithClosestPowerUp(Vector3 playerPosition)
+    IEnumerator InteractWithClosestPowerUpCoroutine(Vector3 playerPosition)
     {
         GameObject closestPowerUp = FindClosestPowerUp(playerPosition);
         if (closestPowerUp != null && Vector3.Distance(closestPowerUp.transform.position, playerPosition) <= interactionRange)
         {
+            notificationText.text = "Power Up cerca";
+            yield return new WaitForSeconds(5f); 
             
-            notificationText.text = "Closest power-up found!";
         }
-        else
-        {
-            Debug.Log("No power-up found nearby or out of range.");
-            
-            notificationText.text = "";
-        }
+       
     }
 }
 

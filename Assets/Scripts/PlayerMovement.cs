@@ -6,6 +6,7 @@ using Fusion;
 public class PlayerMovement : NetworkBehaviour
 {
     private CharacterController _controller;
+    //private Animator _animator;
 
     public float PlayerSpeed = 2f;
 
@@ -14,28 +15,32 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector3 _velocity;
     private bool _jumpPressed;
-
-    
+    private Vector3 move;
 
     public override void Spawned()
     {
         if (HasStateAuthority)
         {
             Camera.main.GetComponent<CameraFollow>()?.SetTarget(transform);
-
         }
     }
+
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        //_animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
-        {
-            _jumpPressed = true;
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 move = new Vector3(horizontalInput, 0, verticalInput) * PlayerSpeed * Runner.DeltaTime;
+
+        //_animator.SetFloat("Speed", move.magnitude);
+
+        _jumpPressed = Input.GetButtonDown("Jump");
     }
 
     public override void FixedUpdateNetwork()
@@ -48,14 +53,15 @@ public class PlayerMovement : NetworkBehaviour
         {
             _velocity = new Vector3(0, -1, 0);
         }
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Runner.DeltaTime * PlayerSpeed;
-
 
         _velocity.y += GravityValue * Runner.DeltaTime;
+
         if (_jumpPressed && _controller.isGrounded)
         {
             _velocity.y += JumpForce;
+            //_animator.SetTrigger("Jump");
         }
+
         _controller.Move(move + _velocity * Runner.DeltaTime);
 
         if (move != Vector3.zero)
@@ -63,7 +69,7 @@ public class PlayerMovement : NetworkBehaviour
             gameObject.transform.forward = move;
         }
 
+        // Reset jump input
         _jumpPressed = false;
-
     }
 }
