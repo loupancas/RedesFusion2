@@ -48,8 +48,8 @@ public class Player : NetworkBehaviour
 
     #endregion
     
-    public event Action<float> OnMovement = delegate {  };
-    public event Action OnShooting = delegate {  };
+    //public event Action<float> OnMovement = delegate {  };
+    //public event Action OnShooting = delegate {  };
 
     public override void Spawned()
     {
@@ -185,7 +185,7 @@ public class Player : NetworkBehaviour
             enemy.RPC_TakeDamage(_shootDamage);
         }
 
-        OnShooting();
+        //OnShooting();
     }
     
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]

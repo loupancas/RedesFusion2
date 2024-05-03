@@ -27,7 +27,7 @@ public class PlayerView : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        //_animator.SetBool("isWalking", Player > 0);
+        //_animator.SetBool("isWalking", Player.LocalPlayer._rgbd.velocity.SetYZero().sqrMagnitude >0);
         //IsRunning = Player.LocalPlayer.RB.velocity.SetYZero().sqrMagnitude > 0;
     }
 

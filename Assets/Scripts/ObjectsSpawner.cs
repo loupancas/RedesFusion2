@@ -1,19 +1,31 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Fusion;
 
-public class PowerUpSpawner : MonoBehaviour
+public class ObjectsSpawner : NetworkBehaviour
 {
-    public GameObject powerUpPrefab;
-    public int numberOfPowerUps;
+    [SerializeField] public GameObject powerUpPrefab;
+    [SerializeField] public GameObject ballPrefab;
+    [SerializeField] public int numberOfPowerUps;
 
     private Vector3 spawnAreaCenter;
     private Vector3 spawnAreaSize;
     public GameObject terrain;
 
+    public override void Spawned()
+    {
+        if (HasStateAuthority)
+        {
+            spawnBall();
+            SpawnPowerUps();
+        }
+    }
+
     void Start()
     {
-        SpawnPowerUps();
+        //Instantiate(ballPrefab, Vector3.up, Quaternion.identity);
+        //SpawnPowerUps();
     }
 
     void SpawnPowerUps()
@@ -26,6 +38,11 @@ public class PowerUpSpawner : MonoBehaviour
         {
             Instantiate(powerUpPrefab, spawnPoint, Quaternion.identity);
         });
+    }
+
+    void spawnBall()
+    {
+        Instantiate(ballPrefab, Vector3.up, Quaternion.identity);
     }
 
     Vector3 GetRandomSpawnPoint()
@@ -45,5 +62,10 @@ public class PowerUpSpawner : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(spawnAreaCenter, spawnAreaSize);
+    }
+
+    public void PlayerJoined(PlayerRef player)
+    {
+        throw new System.NotImplementedException();
     }
 }

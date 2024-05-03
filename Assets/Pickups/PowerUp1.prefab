@@ -294,8 +294,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jump: 10
+  Radius: 1
+  Cooldown: 25
   LayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   IsActive: {fileID: 3133300363803208901}
   Desactivated: {fileID: 687895673139056832}
