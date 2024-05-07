@@ -1189,7 +1189,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 10, y: 0.25, z: 10}
+  m_LocalScale: {x: 20, y: 0.25, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1257,11 +1257,11 @@ MonoBehaviour:
   - {fileID: 1358297485}
   - {fileID: 930351240}
   prefabBall: {fileID: 6659557299791619771, guid: e7ed87cc2b0dcbb45ab73180fde2af48, type: 3}
-  numberOfPowerUps: 2
+  numberOfPowerUps: 4
   minDistanceBetweenPowerUps: 2
   _prefabPowerUp:
   - {fileID: 8735918918353775910, guid: d8fa65edd1ab8544897b03e17cf70128, type: 3}
-  - {fileID: 8735918918353775910, guid: d8fa65edd1ab8544897b03e17cf70128, type: 3}
+  - {fileID: 8735918918353775910, guid: d854646ac5e9e3a4e840236391696191, type: 3}
 --- !u!114 &1820221202
 MonoBehaviour:
   m_ObjectHideFlags: 0

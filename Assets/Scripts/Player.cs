@@ -10,7 +10,9 @@ public class Player : NetworkBehaviour
 
     [Header("Stats")]
     [SerializeField] public float _speed = 3;
-    [SerializeField] private float _jumpForce = 5;
+    [SerializeField] public float _jumpForce = 5;
+    public float _defaultSpeed;
+    public float _defaultJump;
     [SerializeField] private float _shootDamage = 25f;
     [SerializeField] private LayerMask _shootLayer;
 
@@ -27,12 +29,12 @@ public class Player : NetworkBehaviour
     Color NetworkedColor { get; set; }
 
     void OnNetColorChanged() => GetComponentInChildren<Renderer>().material.color = NetworkedColor;
-    
-    // void OnNetColorChanged()
-    // {
-    //     GetComponentInChildren<Renderer>().material.color = NetworkedColor;
-    // }
-    
+
+    //void OnNetColorChanged()
+    //{
+    //    GetComponentInChildren<Renderer>().material.color = NetworkedColor;
+    //}
+
     #endregion
 
     #region Networked Health Change
@@ -40,17 +42,21 @@ public class Player : NetworkBehaviour
     [Networked, OnChangedRender(nameof(OnNetHealthChanged))]
     private float NetworkedHealth { get; set; } = 100;
     void OnNetHealthChanged() => Debug.Log($"Life = {NetworkedHealth}");
-    
+
     // void OnNetHealthChanged()
     // {
     //     Debug.Log($"Life = {NetworkedHealth}");
     // }
 
     #endregion
-    
+
     //public event Action<float> OnMovement = delegate {  };
     //public event Action OnShooting = delegate {  };
-
+    private void Start()
+    {
+        _defaultSpeed = _speed;
+        _defaultJump = _jumpForce;
+    }
     public override void Spawned()
     {
         if (HasStateAuthority)
