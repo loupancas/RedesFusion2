@@ -878,8 +878,7 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 1051886489}
+  NetworkedBehaviours: []
 --- !u!4 &1051886488
 Transform:
   m_ObjectHideFlags: 0
@@ -907,9 +906,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355374d67da80184ab1de6983c01eb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _runner: {fileID: 0}
+  _object: {fileID: 0}
+  InvokeRpc: 0
+  ObjectIndex: 0
+  WordOffset: 0
+  WordCount: 0
+  DefaultReplicated: 1
   PlayerPrefab: {fileID: 1681902851173489380, guid: 4b8f591866c9a06479d1d05e11ee2242, type: 3}
   PlayerRespawnTime: 5
   _State: 0
+  _isNicknameSent: 0
+  _runningStateTime: 0
+  _spawnedPlayers: []
+  _pendingPlayers: []
+  _recentSpawnPoints: []
 --- !u!1 &1232928258
 GameObject:
   m_ObjectHideFlags: 0

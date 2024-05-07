@@ -10,21 +10,20 @@ public class PowerUp : NetworkBehaviour
     public float Radius = 1f;
     public float Cooldown = 25f;
     public LayerMask LayerMask;
-    //public GameObject IsActive;
-    public GameObject Desactivated;
-    
+    public GameObject IsActive;
+    //public GameObject Desactivated;
+    public Player player;
 
-    public bool IsActive => _activationTimer.ExpiredOrNotRunning(Runner);
+    public bool Active => _activationTimer.ExpiredOrNotRunning(Runner);
 
     private TickTimer _activationTimer { get; set; }
 
-    private static Collider[] _colliders = new Collider[8];
+    
+    private static Collider[] _colliders = new Collider[4];
     public override void Spawned()
     {
-        //IsActive.SetActive(IsActive);
-        if (IsActive == false) Desactivated.SetActive(true);
-        else Desactivated.SetActive(false);
-
+        
+        
 
     }
 
@@ -33,12 +32,12 @@ public class PowerUp : NetworkBehaviour
         if (IsActive == false) return;
 
         //se ejecutara el power up
-        // Get all colliders around pickup within Radius.
+        
         int collisions = Runner.GetPhysicsScene().OverlapSphere(transform.position + Vector3.up, Radius, _colliders, LayerMask, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < collisions; i++)
         {
-            // Check for power component on collider game object or any parent.
-            var pickUp = _colliders[i].GetComponentInParent<PowerUp>();
+            
+            var pickUp = _colliders[i].GetComponentInParent<PowerUpAbilities>();
             if (pickUp != null  )
             {
                 PowerUpAbilities.instance.jumpPowerUp(jump);
@@ -49,11 +48,7 @@ public class PowerUp : NetworkBehaviour
             }
         }
 
-        //public override void Render()
-        //{
-        //IsActive.SetActive(IsActive);
-        //Desactivated.SetActive(IsActive == false);
-        //}
+       
 
     }
     void OnDrawGizmos()

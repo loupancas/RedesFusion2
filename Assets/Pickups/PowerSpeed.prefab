@@ -300,7 +300,8 @@ MonoBehaviour:
   LayerMask:
     serializedVersion: 2
     m_Bits: 8
-  Desactivated: {fileID: 687895673139056832}
+  IsActive: {fileID: 8735918918353775910}
+  player: {fileID: 1681902851173489380, guid: 4b8f591866c9a06479d1d05e11ee2242, type: 3}
 --- !u!65 &6823995104129482741
 BoxCollider:
   m_ObjectHideFlags: 0
