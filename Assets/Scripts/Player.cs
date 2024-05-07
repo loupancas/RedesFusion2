@@ -9,7 +9,7 @@ public class Player : NetworkBehaviour
     public static Player LocalPlayer { get; private set; }
 
     [Header("Stats")]
-    [SerializeField] private float _speed = 3;
+    [SerializeField] public float _speed = 3;
     [SerializeField] private float _jumpForce = 5;
     [SerializeField] private float _shootDamage = 25f;
     [SerializeField] private LayerMask _shootLayer;
@@ -18,7 +18,7 @@ public class Player : NetworkBehaviour
     
     private float _xAxi;
     private float _yAxi;
-    private bool _jumpPressed;
+    public bool _jumpPressed;
     private bool _shootPressed;
 
     #region Networked Color Change
