@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using static UnityEngine.ParticleSystem;
-using ParrelSync.NonCore;
+
 
 public class Player : NetworkBehaviour
 {
