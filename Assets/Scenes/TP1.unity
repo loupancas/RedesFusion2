@@ -1263,10 +1263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb36a7e09e991a04591c4021792d8306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 8879251801991786928, guid: 4b8f591866c9a06479d1d05e11ee2242, type: 3}
-  spawnPoints:
-  - {fileID: 1358297485}
-  - {fileID: 930351240}
+  _playerPrefab: {fileID: 3506329705890527487, guid: 90ea7bac2e5903b4aba5fbe18f403d12, type: 3}
   prefabBall: {fileID: 6659557299791619771, guid: e7ed87cc2b0dcbb45ab73180fde2af48, type: 3}
   numberOfPowerUps: 4
   minDistanceBetweenPowerUps: 2

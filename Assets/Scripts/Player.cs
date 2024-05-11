@@ -65,8 +65,10 @@ public class Player : NetworkBehaviour
         if (HasStateAuthority)
         {
             NetworkedColor = GetComponentInChildren<Renderer>().material.color;
-            
-            Camera.main.GetComponent<CameraFollow>()?.SetTarget(transform);
+
+            //Camera.main.GetComponent<CameraFollow>()?.SetTarget(transform);
+            Camera.main.GetComponent<FirstPersonCamera>().Target = transform;
+
             _rgbd = GetComponent<Rigidbody>();
         }
         else
