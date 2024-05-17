@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public abstract class Pickup : MonoBehaviour
+public abstract class Pickup : NetworkBehaviour
 {
     public GameObject particles;
     public string pickUpType;

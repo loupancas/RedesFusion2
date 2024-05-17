@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     [SerializeField] private GameObject _playerPrefab; 
-    [SerializeField] public List<Transform> spawnPoints;
+    //[SerializeField] public List<Transform> spawnPoints;
     [SerializeField] private GameObject  prefabBall;
     [SerializeField] public int numberOfPowerUps;
     public int minDistanceBetweenPowerUps;
@@ -19,21 +19,25 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
     public void PlayerJoined(PlayerRef player)
     {
         //Si el player que entro es el jugador local, entonces "Instanciamos" en red a su player
-        if (player == Runner.LocalPlayer)
-        {
-            int currentPlayer = -1;
-            foreach (var item in Runner.ActivePlayers)
-            {
-                currentPlayer++;
-            }
+        //if (player == Runner.LocalPlayer)
+        //{
+        //    int currentPlayer = -1;
+        //    foreach (var item in Runner.ActivePlayers)
+        //    {
+        //        currentPlayer++;
+        //    }
 
-            Vector3 spawnPosition = spawnPoints.Count - 1 <= currentPlayer ? Vector3.zero : spawnPoints[currentPlayer].position;
+        //    Vector3 spawnPosition = spawnPoints.Count - 1 <= currentPlayer ? Vector3.zero : spawnPoints[currentPlayer].position;
 
-            Runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity);
-           SpawnerObjects();
-        }
+        //    Runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity);
 
-        
+
+        //}
+
+        Runner.Spawn(_playerPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+
+        SpawnerObjects();
+
     }
 
     public void SpawnerObjects()

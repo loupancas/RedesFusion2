@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using static UnityEngine.ParticleSystem;
+
 
 public class Player : NetworkBehaviour
 {
@@ -17,7 +19,8 @@ public class Player : NetworkBehaviour
     [SerializeField] private LayerMask _shootLayer;
 
     public Rigidbody _rgbd;
-    
+    public PowerUp PowerUp;
+
     private float _xAxi;
     private float _yAxi;
     public bool _jumpPressed;
@@ -62,8 +65,10 @@ public class Player : NetworkBehaviour
         if (HasStateAuthority)
         {
             NetworkedColor = GetComponentInChildren<Renderer>().material.color;
-            
-            Camera.main.GetComponent<CameraFollow>()?.SetTarget(transform);
+
+            //Camera.main.GetComponent<CameraFollow>()?.SetTarget(transform);
+            Camera.main.GetComponent<FirstPersonCamera>().Target = transform;
+
             _rgbd = GetComponent<Rigidbody>();
         }
         else
@@ -124,6 +129,8 @@ public class Player : NetworkBehaviour
         if (_jumpPressed)
         {
             Jump();
+             
+
             _jumpPressed = false;
         }
 
@@ -175,8 +182,39 @@ public class Player : NetworkBehaviour
 
     void Jump()
     {
-        _rgbd.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
+        if (IsGrounded()) // Check if the player is grounded before allowing a jump
+        {
+            _rgbd.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
+        }
     }
+
+    bool IsGrounded()
+    {
+        // Perform a raycast downwards to check if the player is grounded
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (HasStateAuthority)
+        {
+            PowerUpAbilities powerUp = collision.gameObject.GetComponent<PowerUpAbilities>();
+            if (powerUp != null)
+            {
+                //powerUp.speedPowerUp(powerUp.speed);
+                //powerUp.jumpPowerUp(powerUp.jump);
+                
+                //Instantiate(powerUp.Particles, transform.position, transform.rotation);
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
 
     void RaycastShoot()
     {
